@@ -39,4 +39,16 @@ public class GameController extends BaseController {
         return toJson("index", Code.SUCCESS.getCode());
 
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/game/initOnce", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String initOnce() {
+        try {
+            gameService.initOnce();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return toJson("index", Code.SUCCESS.getCode());
+
+    }
 }
