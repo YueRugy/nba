@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="navbar">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>主界面</title>
+    <link rel="stylesheet" type="text/css" th:href="@{~/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{~/css/bootstrap-theme.css}"/>
+    <style type="text/css">
+        .title {
+            color: white;
+            font-size: 18px;
+            float: left;
+            width: 200px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            font-weight: bold;
+            background: url(./static/img/title.png);
+            margin-top: 50px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="title" style="margin-bottom: 20px;margin-top: 10px;">
+    东部球队
+</div>
+<table class="table table-striped table-hover">
+    <tr>
+        <th>英文名</th>
+        <th>中文名</th>
+        <th>分区</th>
+        <th>简称</th>
+        <th>详细</th>
+    </tr>
+    <!--/*@thymesVar id="teamList" type=""*/-->
+    <tr th:each="team:${page}">
+        <td th:text="${team.nameEn}"></td>
+        <td th:text="${team.name}"></td>
+        <td th:switch="${team.direction}">
+            <p th:case="2">西部</p>
+            <p th:case="1">东部</p>
+        </td>
+        <td th:text="${team.simple}"></td>
+        <td th:with="id=${team.id},baseUrl='/player/team/',url=${baseUrl}+${id}">
+            <a th:href="@{${url}}">详细</a>
+        </td>
+    </tr>
+
+</table>
+
+<div class="title" style="margin-bottom: 20px;margin-top: 10px;">
+    西部球队
+</div>
+<table class="table table-striped table-hover">
+    <tr>
+        <th>英文名</th>
+        <th>中文名</th>
+        <th>分区</th>
+        <th>简称</th>
+        <th>详细</th>
+    </tr>
+    <!--/*@thymesVar id="teamList" type=""*/-->
+    <tr th:each="team:${page1}">
+        <td th:text="${team.nameEn}"></td>
+        <td th:text="${team.name}"></td>
+        <td th:switch="${team.direction}">
+            <p th:case="2">西部</p>
+            <p th:case="1">东部</p>
+        </td>
+        <td th:text="${team.simple}"></td>
+        <td th:with="id=${team.id},baseUrl='/player/team/',url=${baseUrl}+${id}">
+            <a th:href="@{${url}}">详细</a>
+        </td>
+    </tr>
+
+</table>
+
+<div class="title" style="margin-bottom: 20px;margin-top: 10px;">
+    历史球队
+</div>
+<table class="table table-striped table-hover">
+    <tr>
+        <th>英文名</th>
+        <th>中文名</th>
+        <th>分区</th>
+        <th>简称</th>
+        <th>详细</th>
+    </tr>
+    <!--/*@thymesVar id="teamList" type=""*/-->
+    <tr th:each="team:${page2}">
+        <td th:text="${team.nameEn}"></td>
+        <td th:text="${team.name}"></td>
+        <td th:switch="${team.direction}">
+            <p th:case="2">西部</p>
+            <p th:case="1">东部</p>
+        </td>
+        <td th:text="${team.simple}"></td>
+        <td th:with="id=${team.id},baseUrl='/player/team/',url=${baseUrl}+${id}">
+            <a th:href="@{${url}}">详细</a>
+        </td>
+    </tr>
+
+</table>
+
+<!--<ul class="pagination" th:with="baseUrl=${#httpServletRequest.getRequestURL().toString()},
+     pars=${#httpServletRequest.getQueryString() eq null ? '' : pars},
+     newPar=${(pars eq null ? '' : pars).replace('page='+(page.number), '')},
+                                                curTmpUrl=${baseUrl+'?'+newPar},
+                                                curUrl=${curTmpUrl.endsWith('&amp;') ?
+                                                curTmpUrl.substring(0, curTmpUrl.length()-1):curTmpUrl}">
+
+    &lt;!&ndash; 上一页 &ndash;&gt;
+    <li class="page-item" data-th-classappend="*{first} ? 'disabled' : ''">
+        <a th:href="@{${curUrl}(page=${page.number-1})}"
+           class="page-link"
+           data-th-attr="pageIndex=${page.number} - 1"
+           aria-label="Previous">
+            <span aria-hidden="true">«</span>
+        </a>
+    </li>
+
+    &lt;!&ndash; 迭代生成页码 &ndash;&gt;
+    <li class="page-item" data-th-each="i : ${#numbers.sequence(1, page.totalPages)}"
+        data-th-classappend="${(page.number + 1) eq i} ? 'active' : ''">
+        <a class="page-link" data-th-attr="pageIndex=${i} - 1" th:href="@{${curUrl}(page=${i}-1)}">
+            <span data-th-text="${i}"></span>
+        </a>
+    </li>
+
+    &lt;!&ndash; 下一页 &ndash;&gt;
+    <li class="page-item" data-th-classappend="*{last} ? 'disabled' : ''">
+        <a th:href="@{${curUrl}(page=${page.number+1})}" class="page-link"
+           data-th-attr="pageIndex=${page.number} + 1"
+           aria-label="Next">
+            <span aria-hidden="true">»</span>
+        </a>
+    </li>
+</ul>-->
+
+<script th:src="@{~/js/bootstarp.js}"></script>
+<script th:src="@{~/js/jquery.js}"></script>
+</body>
+</html>

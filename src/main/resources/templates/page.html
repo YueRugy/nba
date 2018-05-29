@@ -1,0 +1,46 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+
+<h1 th:text="${#httpServletRequest.getRequestURL().toString()}"></h1>
+
+<div th:fragment="page"
+     th:with="baseUrl=${#httpServletRequest.getRequestURL().toString()},
+     pars=${#httpServletRequest.getQueryString() eq null ? '' : pars}">
+    <ul class="pagination" th:with="newPar=${(pars eq null ? '' : pars).replace('page='+(page.number), '')},
+                                                curTmpUrl=${baseUrl+'?'+newPar},
+                                                curUrl=${curTmpUrl.endsWith('&amp;') ?
+                                                curTmpUrl.substring(0, curTmpUrl.length()-1):curTmpUrl}">
+
+        <!-- 上一页 -->
+        <li class="page-item" data-th-classappend="*{first} ? 'disabled' : ''">
+            <a th:href="@{${curUrl}(page=${page.number-1})}"
+               class="page-link"
+               data-th-attr="pageIndex=${page.number} - 1"
+               aria-label="Previous">
+                <span aria-hidden="true">«</span>
+            </a>
+        </li>
+
+        <!-- 迭代生成页码 -->
+        <li class="page-item" data-th-each="i : ${#numbers.sequence(1, page.totalPages)}"
+            data-th-classappend="${(page.number + 1) eq i} ? 'active' : ''">
+            <a class="page-link" data-th-attr="pageIndex=${i} - 1" th:href="@{${curUrl}(page=${i})}">
+                <span data-th-text="${i}"></span>
+            </a>
+        </li>
+
+        <!-- 下一页 -->
+        <li class="page-item" data-th-classappend="*{last} ? 'disabled' : ''">
+            <a th:href="@{${curUrl}(page=${page.number+1})}" class="page-link"
+               data-th-attr="pageIndex=${page.number} + 1"
+               aria-label="Next">
+                <span aria-hidden="true">»</span>
+            </a>
+        </li>
+    </ul>
+
+</div>
+
+</body>
+</html>
