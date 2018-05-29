@@ -18,7 +18,7 @@ import java.io.Serializable;
 @Setter
 @EqualsAndHashCode
 @ToString
-public class User implements Serializable{
+public class User implements Serializable {
     @Id
     @GeneratedValue
     private Integer id;

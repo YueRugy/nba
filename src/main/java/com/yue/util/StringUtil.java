@@ -1,5 +1,8 @@
 package com.yue.util;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Created by yue on 2018/5/22
  */
@@ -11,19 +14,32 @@ public class StringUtil {
             return null;
         }
 
-        return str.replaceAll("\\d+", "");
+        final String regex = "\\d+";
 
+        return removeSpecifiedChar(str, regex);
 
     }
 
-    //去掉指定字符
 
-    public static String removeSpecifiedChar(String str, String specified) {
+    public static String removeChinese(String str){
         if (str == null) {
             return null;
         }
 
-        return str.replaceAll(specified, "");
+        final String regex ="[\u4e00-\u9fa5]";
+
+        return removeSpecifiedChar(str, regex);
+    }
+
+    //去掉指定字符
+
+    public static String removeSpecifiedChar(String str, String regex) {
+        if (str == null) {
+            return null;
+        }
+        Pattern pat = Pattern.compile(regex);
+        Matcher mat = pat.matcher(str);
+        return mat.replaceAll("");
 
 
     }

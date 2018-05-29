@@ -1,0 +1,2 @@
+http://www.stat-nba.com/query_team.php?crtcol=date_out&order=0&QueryType=game&GameType=playoff&Team_id=NOH&PageNum=1000&Season0=2002&Season1=2003
+http://www.stat-nba.com/query_team.php?crtcol=date_out&order=0&QueryType=game&GameType=season&Team_id=NOH&PageNum=1000&Season0=2002&Season1=2003

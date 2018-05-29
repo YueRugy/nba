@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -17,7 +18,7 @@ import java.util.Date;
 @Setter
 @EqualsAndHashCode
 @ToString
-public class Player {
+public class Player implements Serializable{
     @Id
     @GeneratedValue
     private Integer id;

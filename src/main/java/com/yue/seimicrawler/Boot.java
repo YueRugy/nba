@@ -18,6 +18,37 @@ public class Boot {
 
     public static void main(String[] args) throws Exception {
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    /*     String str="1988年9月29日";
 
         str =      str.replaceAll( "[^x00-xff]" , "-" );
@@ -87,15 +118,25 @@ public class Boot {
         System.out.println(player);     */
 
         //创建httpget实例
+/*
+*/
 
+/*
+*/
 
-        CloseableHttpClient httpClient = HttpTranfer.getHttpClient();
-        String content = HttpTranfer.getContent(httpClient, "http://www.stat-nba.com/playerList.php?il=A&lil=0");
-        Document document = Jsoup.parse(content);
+    /*    CloseableHttpClient httpClient = HttpTranfer.getHttpClient();*/
+    /*    String content = HttpTranfer.getContent(httpClient, "http://www.stat-nba.com/playerList.php?il=A&lil=0");*/
+    /*    Document document = Jsoup.parse(content);*/
+/*
+*/
 
-        Elements elements = document.select("div.playerList");
-        System.out.println(elements.size());
+    /*    Elements elements = document.select("div.playerList");*/
+    /*    System.out.println(elements.size());*/
+/*
+*/
 
+/*
+*/
 
     }
 

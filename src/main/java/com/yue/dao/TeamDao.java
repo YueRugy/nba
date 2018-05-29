@@ -16,4 +16,6 @@ public interface TeamDao extends JpaRepository<Team, Integer> {
     List<Team> findByDirection(int code);
 
     List<Team> findByDirectionIsNull();
+
+    List<Team> findByOnce(int value);
 }

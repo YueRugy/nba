@@ -1,5 +1,6 @@
 package com.yue.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,6 +8,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -15,8 +17,9 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = {"list"})
 @ToString
+@JsonIgnoreProperties(value = {"list","oList", "hibernateLazyInitializer", "hibernateLazyInitializer", "handler", "fieldHandler"})
 public class Team implements Serializable {
     @Id
     @GeneratedValue
@@ -30,6 +33,11 @@ public class Team implements Serializable {
     private Integer once;//是否是以前的球队
 
     private String url;
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Game> list;
+
+  /*  @OneToMany(mappedBy = "opponentTeam", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Game> oList;*/
 
 
 }
