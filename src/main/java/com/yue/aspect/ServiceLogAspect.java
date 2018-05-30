@@ -1,15 +1,20 @@
 package com.yue.aspect;
 
+import com.yue.annotation.ServiceLogAnnotation;
 import com.yue.util.ClassUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+
+import java.lang.reflect.Method;
 
 /**
  * Created by yue on 2018/5/30
  */
 @Aspect
 @Configuration
+@Order(2)
 public class ServiceLogAspect extends BaseAspect {
 
     @Pointcut("execution(public * com.yue.service..*.*(..))")
@@ -19,7 +24,7 @@ public class ServiceLogAspect extends BaseAspect {
     @Before("servicePointcut()")
     public void doBefore(JoinPoint joinPoint) throws Throwable {
         startTime.set(System.currentTimeMillis());
-        String className = joinPoint.getTarget().getClass().getSimpleName();
+        String className = joinPoint.getTarget().getClass().getName();
         String methodName = joinPoint.getSignature().getName();
         logger.info("class_name : " + className);
         logger.info("method_name : " + methodName);
@@ -46,4 +51,9 @@ public class ServiceLogAspect extends BaseAspect {
     }
 
 
+    @Override
+    String getDescription(Method method) {
+        return method.getAnnotation(ServiceLogAnnotation.class) == null ?
+                "" : method.getAnnotation(ServiceLogAnnotation.class).description();
+    }
 }

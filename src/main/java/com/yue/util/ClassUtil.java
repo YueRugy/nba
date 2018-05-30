@@ -26,6 +26,7 @@ public class ClassUtil {
         pool.insertClassPath(classPath);
 
         CtClass ctClass = pool.get(clazz_name);
+
         CtMethod ctMethod = ctClass.getDeclaredMethod(methodName);
         MethodInfo methodInfo = ctMethod.getMethodInfo();
         CodeAttribute codeAttribute = methodInfo.getCodeAttribute();

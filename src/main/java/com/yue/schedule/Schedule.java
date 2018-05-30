@@ -1,18 +1,8 @@
-package com.yue.service;
+package com.yue.schedule;
 
-import com.yue.component.DruidDBConfig;
-import com.yue.constant.Url;
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import java.util.logging.Logger;
 
 /**
  * Created by yue on 2018/5/19

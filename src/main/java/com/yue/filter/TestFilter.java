@@ -16,7 +16,6 @@ public class TestFilter extends AdapterFilter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-       // System.out.println("aaaa");
         chain.doFilter(request, response);
     }
 

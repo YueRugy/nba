@@ -50,10 +50,11 @@ public class GameController extends BaseController {
 
     }
 
-    @RequestMapping(value = "/game/test", method = RequestMethod.GET)
+    @ResponseBody
+    @RequestMapping(value = "/game/test", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
     public String testLog() throws Exception {
-        throw new Exception("aaa");
-     //   return toJson("index", Code.SUCCESS.getCode());
+        gameService.test();
+        return toJson("index", Code.SUCCESS.getCode());
 
     }
 }

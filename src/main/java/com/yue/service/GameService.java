@@ -23,7 +23,6 @@ public class GameService {
     private final GameDao gameDao;
     private final TeamDao teamDao;
 
-    private static Logger logger = LogManager.getLogger(GameService.class);
 
     @Autowired
     public GameService(GameDao gameDao, TeamDao teamDao) {
@@ -59,8 +58,8 @@ public class GameService {
 
     }
 
-    public void test() {
+    public void test() throws Exception {
 
-        System.out.println(1/0);
+        throw new Exception("aa");
     }
 }

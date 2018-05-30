@@ -1,6 +1,5 @@
 package com.yue.aspect;
 
-import com.yue.annotation.ControllerLogAnnotation;
 import com.yue.util.ClassUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
@@ -16,9 +15,10 @@ import java.util.Map;
 /**
  * Created by yue on 2018/5/30
  */
-public class BaseAspect {
+public abstract class BaseAspect {
     Logger logger = LogManager.getLogger(getClass());
     ThreadLocal<Long> startTime = new ThreadLocal<>();
+
 
     /**
      * 获取请求头部信息
@@ -43,7 +43,7 @@ public class BaseAspect {
      */
 
 
-    String getMethodDescription(JoinPoint joinPoint)
+    private String getMethodDescription(JoinPoint joinPoint)
             throws Exception {
         String targetName = joinPoint.getTarget().getClass().getName();
         String methodName = joinPoint.getSignature().getName();
@@ -55,14 +55,15 @@ public class BaseAspect {
             if (method.getName().equals(methodName)) {
                 Class[] clazzs = method.getParameterTypes();
                 if (clazzs.length == arguments.length) {
-                    description = method.getAnnotation(ControllerLogAnnotation.class)
-                            .description();
+                    description = getDescription(method);
                     break;
                 }
             }
         }
         return description;
     }
+
+    abstract String getDescription(Method method);
 
 
     /**
@@ -104,7 +105,9 @@ public class BaseAspect {
         } catch (Exception ex) {
             //记录本地异常日志
             logger.error("Do after throwing occurred exception:{}", ex.getMessage());
-
+            logger.error((joinPoint.getTarget().getClass().getName() + "."
+                    + joinPoint.getSignature().getName() + "()")
+                    + " occurred exception ", e);
         }
     }
 

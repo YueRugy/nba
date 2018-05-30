@@ -1,12 +1,15 @@
 package com.yue.aspect;
 
+import com.yue.annotation.ControllerLogAnnotation;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 
 
@@ -15,6 +18,7 @@ import java.util.Arrays;
  */
 @Aspect
 @Configuration
+@Order(1)
 public class ControllerLogAspect extends BaseAspect {
 
 
@@ -62,4 +66,10 @@ public class ControllerLogAspect extends BaseAspect {
     }
 
 
+    @Override
+    String getDescription(Method method) {
+        return method.getAnnotation(ControllerLogAnnotation.class) == null ?
+                "" : method.getAnnotation(ControllerLogAnnotation.class).description();
+
+    }
 }
