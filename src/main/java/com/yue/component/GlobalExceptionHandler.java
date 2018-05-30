@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    public static final String DEFAULT_ERROR_VIEW = "error";
+    private static final String DEFAULT_ERROR_VIEW = "error";
 
     // @ExceptionHandler用来定义函数针对的异常类型，最后将Exception对象和请求URL映射到error.html中
     @ExceptionHandler(value = Exception.class)
