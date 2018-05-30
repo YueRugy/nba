@@ -2,6 +2,8 @@ package com.yue.controller;
 
 import com.yue.constant.Code;
 import com.yue.service.GameService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class GameController extends BaseController {
 
+    private static Logger logger = LogManager.getLogger(GameController.class);
+
     private final GameService gameService;
 
     @Autowired
@@ -34,6 +38,7 @@ public class GameController extends BaseController {
         try {
             gameService.init();
         } catch (Exception e) {
+            //logger.error(e);
             e.printStackTrace();
         }
         return toJson("index", Code.SUCCESS.getCode());
@@ -49,6 +54,13 @@ public class GameController extends BaseController {
             e.printStackTrace();
         }
         return toJson("index", Code.SUCCESS.getCode());
+
+    }
+
+    @RequestMapping(value = "/game/test", method = RequestMethod.GET)
+    public String testLog() throws Exception {
+        throw new Exception("aaa");
+     //   return toJson("index", Code.SUCCESS.getCode());
 
     }
 }

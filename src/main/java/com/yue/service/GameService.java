@@ -5,6 +5,8 @@ import com.yue.dao.GameDao;
 import com.yue.dao.TeamDao;
 import com.yue.entity.Team;
 import com.yue.task.GameTask;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,8 @@ import java.util.concurrent.Semaphore;
 public class GameService {
     private final GameDao gameDao;
     private final TeamDao teamDao;
+
+    private static Logger logger = LogManager.getLogger(GameService.class);
 
     @Autowired
     public GameService(GameDao gameDao, TeamDao teamDao) {
@@ -53,5 +57,10 @@ public class GameService {
         }
 
 
+    }
+
+    public void test() {
+
+        System.out.println(1/0);
     }
 }

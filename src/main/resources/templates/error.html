@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{~/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{~/css/bootstrap-theme.css}"/>
+
+</head>
+<body>
+<div class="container">
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        <h2 th:text="${errorname }"></h2>
+        <p th:text="${exception.message }"></p>
+        <p th:text="${url }"></p>
+    </div>
+</div>
+</body>
+</html>
