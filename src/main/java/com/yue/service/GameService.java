@@ -3,10 +3,9 @@ package com.yue.service;
 import com.yue.constant.TeamO;
 import com.yue.dao.GameDao;
 import com.yue.dao.TeamDao;
+import com.yue.entity.Game;
 import com.yue.entity.Team;
 import com.yue.task.GameTask;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,27 +31,25 @@ public class GameService {
 
     public void init() {
         List<Team> list = teamDao.findByOnce(TeamO.now.getValue());
-        final Semaphore semaphore = new Semaphore(20);
 
         ExecutorService pool = Executors
                 .newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
         for (Team t : list) {
-            pool.submit(new GameTask(t, gameDao, semaphore));
+            pool.submit(new GameTask(t, gameDao));
         }
 
     }
 
     public void initOnce() {
         List<Team> list = teamDao.findByOnce(TeamO.once.getValue());
-        final Semaphore semaphore = new Semaphore(20);
 
         ExecutorService pool = Executors
                 .newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
 
         for (Team t : list) {
-            pool.submit(new GameTask(t, gameDao, semaphore));
+            pool.submit(new GameTask(t, gameDao));
         }
 
 
@@ -61,5 +58,27 @@ public class GameService {
     public void test() throws Exception {
 
         throw new Exception("aa");
+    }
+
+    public void refactor() {
+        int max = 42426;
+
+        String base = " http://www.stat-nba.com";
+        for (int i = 1; i < max; i++) {
+            String url = "/game/" + i + ".html";
+            String query = "." + url;
+            List<Game> list = gameDao.findByUrl(query);
+            if (list != null) {
+                if (list.size() > 1) {
+                    continue;
+                }
+
+                if (list.size() == 1) {
+                    Game game = list.get(0);
+                }
+            }
+
+        }
+
     }
 }

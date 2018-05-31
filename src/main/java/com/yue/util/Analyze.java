@@ -3,11 +3,14 @@ package com.yue.util;
 import com.yue.constant.GamePrimary;
 import com.yue.constant.GameSuccess;
 import com.yue.constant.GameType;
+import com.yue.dao.GameDao;
 import com.yue.entity.Game;
 import com.yue.entity.Team;
 import org.jsoup.nodes.Element;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by yue on 2018/5/29
@@ -15,12 +18,27 @@ import java.math.BigDecimal;
 public class Analyze {
 
 
-    public static Game getGame(Element e, Team team) {
+    public static Game getGame(Element e, Team team, GameType gameType, String gameTime, GameDao gameDao) {
+        String urlData = e.select("td.result_out").first().getElementsByTag("a").first().attr("href");
+        List<Game> list = gameDao.findByUrl(urlData);
+        if (list != null && list.size() == 2) {
+            return null;
+        }
+
+        if (list != null && list.size() == 1) {
+            if (Objects.equals(list.get(0).getTeam().getId(), team.getId())) {
+                return null;
+            }
+        }
 
         Game game = new Game();
-        game.setGameType(GameType.season.getValue());
-        game.setTeam(team);
 
+
+        game.setOpponentTeam(team);
+
+        game.setGameType(gameType.getValue());
+        game.setTeam(team);
+        game.setGameTime(gameTime);
         String dateStr = e.select("td.date_out").first().text();
         game.setDate(TimeUtil.strToDate(dateStr));
         String resultStr = e.select("td.wl").first().text();

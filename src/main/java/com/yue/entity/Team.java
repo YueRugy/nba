@@ -19,7 +19,7 @@ import java.util.Set;
 @Setter
 @EqualsAndHashCode(exclude = {"list"})
 @ToString
-@JsonIgnoreProperties(value = {"list","oList", "hibernateLazyInitializer", "hibernateLazyInitializer", "handler", "fieldHandler"})
+@JsonIgnoreProperties(value = {"list", "oList", "hibernateLazyInitializer", "hibernateLazyInitializer", "handler", "fieldHandler"})
 public class Team implements Serializable {
     @Id
     @GeneratedValue
@@ -36,8 +36,11 @@ public class Team implements Serializable {
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Game> list;
 
-  /*  @OneToMany(mappedBy = "opponentTeam", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Game> oList;*/
+    @OneToMany(mappedBy = "opponentTeam", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Game> oList;
+
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PlayerGame> pgList;
 
 
 }

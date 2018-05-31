@@ -8,17 +8,18 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by yue on 2018/5/28
  */
 
-@Entity
+@Entity(name = "player")
 @Getter
 @Setter
 @EqualsAndHashCode
 @ToString
-public class Player implements Serializable{
+public class Player implements Serializable {
     @Id
     @GeneratedValue
     private Integer id;
@@ -33,6 +34,9 @@ public class Player implements Serializable{
     private Date date;
 
     private String url;
+
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PlayerGame> pgList;
 
 
 }

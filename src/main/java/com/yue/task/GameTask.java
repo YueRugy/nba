@@ -1,6 +1,8 @@
 package com.yue.task;
 
+import com.yue.constant.GameType;
 import com.yue.dao.GameDao;
+import com.yue.entity.Game;
 import com.yue.entity.Team;
 import com.yue.util.Analyze;
 import com.yue.util.HttpTranfer;
@@ -10,8 +12,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-import java.util.concurrent.Semaphore;
 
 import static com.yue.constant.Url.*;
 
@@ -24,12 +24,10 @@ public class GameTask implements Runnable {
     private Team team;
     private GameDao gameDao;
     private static final String baseUrl = "http://www.stat-nba.com/team/";
-    private Semaphore semaphore;
 
-    public GameTask(Team team, GameDao gameDao, Semaphore semaphore) {
+    public GameTask(Team team, GameDao gameDao) {
         this.team = team;
         this.gameDao = gameDao;
-        this.semaphore = semaphore;
     }
 
     @Override
@@ -67,28 +65,49 @@ public class GameTask implements Runnable {
             flag = false;
         }
         last = last > year ? year : last;
-
         if (flag) {
             for (int i = start; i <= last; i++) {
-                try {
-                    semaphore.acquire();
-                    int urlEnd = i + 1;
-                    String realUrl = url1 + simple + url2 + i + url3 + urlEnd + url4;
-                    CloseableHttpClient httpClient1 = HttpTranfer.getHttpClient();
-                    String content = HttpTranfer.getContent(httpClient1, realUrl);
-                    Document dom = Jsoup.parse(content);
-                    Element element1 = dom.getElementsByTag("tbody").first();
-                    Elements elements = element1.getElementsByTag("tr");
 
-                    for (Element e : elements) {
-                        gameDao.save(Analyze.getGame(e, team));
+                int urlEnd = i + 1;
+                String realUrl = url1 + simple + url2 + i + url3 + urlEnd + url4;
+                CloseableHttpClient httpClient1 = HttpTranfer.getHttpClient();
+                String content = HttpTranfer.getContent(httpClient1, realUrl);
+                Document dom = Jsoup.parse(content);
+                Element element1 = dom.getElementsByTag("tbody").first();
+                Elements elements = element1.getElementsByTag("tr");
+
+                String gameTime = i + "-" + urlEnd;
+
+                for (Element e : elements) {
+
+                    Game game = Analyze.getGame(e, team, GameType.playoff, gameTime, gameDao);
+                    if (game == null) {
+                        continue;
                     }
+                    gameDao.save(game);
+                }
 
-                } catch (Exception e) {
-                    e.printStackTrace();
 
-                } finally {
-                    semaphore.release();
+            }
+
+
+            for (int i = start; i <= last; i++) {
+                int urlEnd = i + 1;
+                String realUrl = url5 + simple + url2 + i + url3 + urlEnd + url4;
+                CloseableHttpClient httpClient1 = HttpTranfer.getHttpClient();
+                String content = HttpTranfer.getContent(httpClient1, realUrl);
+                Document dom = Jsoup.parse(content);
+                Element element1 = dom.getElementsByTag("tbody").first();
+                String gameTime = i + "-" + urlEnd;
+                if (element1 != null) {
+                    Elements elements = element1.getElementsByTag("tr");
+                    for (Element e : elements) {
+                        Game game = Analyze.getGame(e, team, GameType.playoff, gameTime, gameDao);
+                        if (game == null) {
+                            continue;
+                        }
+                        gameDao.save(game);
+                    }
                 }
 
             }

@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by yue on 2018/5/29
@@ -33,9 +34,9 @@ public class Game implements Serializable {
 
     private Integer result;
     private Integer pri;
- /*   @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false)//可选属性optional=false,表示company不能为空
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false)//可选属性optional=false,表示company不能为空
     @JoinColumn(name = "o_id")//设置在employee表中的关联字段(外键)
-    private Team opponentTeam;*/
+    private Team opponentTeam;
 
     @Column(name = "shoot_rate", precision = 5, scale = 3)
     private BigDecimal shootRate;
@@ -65,4 +66,10 @@ public class Game implements Serializable {
 
     private Integer gameType;
     private String url;
+
+    private String gameTime;
+
+
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PlayerGame> pgList;
 }

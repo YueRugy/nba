@@ -51,6 +51,19 @@ public class GameController extends BaseController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/game/initPlayoff", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String initPlayOff() {
+        try {
+            gameService.refactor();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return toJson("index", Code.SUCCESS.getCode());
+
+    }
+
+
+    @ResponseBody
     @RequestMapping(value = "/game/test", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
     public String testLog() throws Exception {
         gameService.test();
