@@ -21,7 +21,7 @@ import java.util.List;
 @ToString
 public class Player implements Serializable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     @Column(name = "name_en")

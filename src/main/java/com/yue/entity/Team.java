@@ -22,7 +22,7 @@ import java.util.Set;
 @JsonIgnoreProperties(value = {"list", "oList", "hibernateLazyInitializer", "hibernateLazyInitializer", "handler", "fieldHandler"})
 public class Team implements Serializable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     @Column(name = "name_en")

@@ -60,7 +60,7 @@ public class GameService {
         throw new Exception("aa");
     }
 
-    public void refactor() {
+   /* public void refactor() {
         int max = 42426;
 
         String base = " http://www.stat-nba.com";
@@ -80,5 +80,5 @@ public class GameService {
 
         }
 
-    }
+    }*/
 }

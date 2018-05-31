@@ -6,6 +6,7 @@ import com.yue.constant.GameType;
 import com.yue.dao.GameDao;
 import com.yue.entity.Game;
 import com.yue.entity.Team;
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.nodes.Element;
 
 import java.math.BigDecimal;
@@ -114,5 +115,53 @@ public class Analyze {
 
         return game;
 
+    }
+
+
+
+    public static void simple(Element data, Game newGame) {
+        int fga = Integer.parseInt(data.select("td.fga").first().text());
+        newGame.setShootNumber(fga);
+        int fg = Integer.parseInt(data.select("td.fg").first().text());
+        newGame.setShoot(fg);
+        String fr = data.select("td.fgper").first().text();
+        if (StringUtils.isEmpty(fr)) {
+            newGame.setShootRate(new BigDecimal(0.0));
+        } else {
+            newGame.setShootRate(new BigDecimal(fr));
+        }
+
+
+        int threepa = Integer.parseInt(data.select("td.threepa").first().text());
+        newGame.setTShootNumber(threepa);
+        int threep = Integer.parseInt(data.select("td.threep").first().text());
+        newGame.setTShoot(threep);
+        String threepper = data.select("td.threepper").first().text();
+        if (StringUtils.isEmpty(threepper)) {
+            newGame.setTShootRate(new BigDecimal(0.0));
+        } else {
+            newGame.setTShootRate(new BigDecimal(threepper));
+        }
+
+        int fta = Integer.parseInt(data.select("td.fta").first().text());
+        newGame.setPShootNumber(fta);
+        int ft = Integer.parseInt(data.select("td.ft").first().text());
+        newGame.setPShoot(ft);
+        String ftper = data.select("td.ftper").first().text();
+        if (StringUtils.isEmpty(ftper)) {
+            newGame.setPShootRate(new BigDecimal(0.0));
+        } else {
+            newGame.setPShootRate(new BigDecimal(ftper));
+        }
+        newGame.setRebounds(Integer.parseInt(data.select("td.trb").first().text()));
+        newGame.setORebound(Integer.parseInt(data.select("td.orb").first().text()));
+        newGame.setTRebound(Integer.parseInt(data.select("td.drb").first().text()));
+
+        newGame.setAssists(Integer.parseInt(data.select("td.ast").first().text()));
+        newGame.setSteal(Integer.parseInt(data.select("td.stl").first().text()));
+        newGame.setBlock(Integer.parseInt(data.select("td.blk").first().text()));
+        newGame.setMiss(Integer.parseInt(data.select("td.tov").first().text()));
+        newGame.setFoul(Integer.parseInt(data.select("td.pf").first().text()));
+        newGame.setScore(Integer.parseInt(data.select("td.pts").first().text()));
     }
 }

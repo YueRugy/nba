@@ -50,7 +50,7 @@ public class GameController extends BaseController {
 
     }
 
-    @ResponseBody
+  /*  @ResponseBody
     @RequestMapping(value = "/game/initPlayoff", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public String initPlayOff() {
         try {
@@ -60,7 +60,7 @@ public class GameController extends BaseController {
         }
         return toJson("index", Code.SUCCESS.getCode());
 
-    }
+    }*/
 
 
     @ResponseBody
