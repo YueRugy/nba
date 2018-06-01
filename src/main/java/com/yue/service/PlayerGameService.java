@@ -47,26 +47,31 @@ public class PlayerGameService {
             String query = "./game/" + i + ".html";
             String url = base + "game/" + i + ".html";
             List<Game> list = gameDao.findByUrl(query);
-            if (list != null) {
+            if (list != null && list.size() == 1) {
                 if (list.size() == 1) {
-                    single.submit(new SingleTask(url, list.get(i), gameDao, teamDao));
-                } else if (list.size() == 2) {
-                    Game game1 = list.get(0);
-                    Game game2 = list.get(1);
-                    game1.setOpponentTeam(teamDao.findOne(game2.getTeam().getId()));
-                    game2.setOpponentTeam(teamDao.findOne(game1.getTeam().getId()));
-                   /* gameDao.save(game1);
-                    gameDao.save(game2);*/
+                     single.submit(new SingleTask(url, list.get(i), gameDao, teamDao));
                 }
             }
 
-
             if (list == null || list.size() == 0) {
-                dou.submit(new DouTask(url, query, teamDao, gameDao));
+                 dou.submit(new DouTask(url, query, teamDao, gameDao));
             }
 
 
         }
+
+
+    }
+
+    public void updateO() {
+        List<Game> list = gameDao.selectO();
+        for (int i = 0; i < list.size(); ) {
+
+            list.get(i).setOpponentTeam(list.get(i + 1).getTeam());
+            list.get(i + 1).setOpponentTeam(list.get(i).getTeam());
+            i += 2;
+        }
+        gameDao.save(list);
 
 
     }

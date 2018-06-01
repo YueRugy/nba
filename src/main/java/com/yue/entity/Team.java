@@ -17,7 +17,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode(exclude = {"list"})
+@EqualsAndHashCode(exclude = {"list","oList","pgList"})
 @ToString
 @JsonIgnoreProperties(value = {"list", "oList", "hibernateLazyInitializer", "hibernateLazyInitializer", "handler", "fieldHandler"})
 public class Team implements Serializable {

@@ -19,7 +19,7 @@ import java.util.List;
 @Entity(name = "game")
 @Getter
 @Setter
-@EqualsAndHashCode(exclude = {"team"})
+@EqualsAndHashCode(exclude = {"team","opponentTeam","pgList"})
 @ToString
 @JsonIgnoreProperties(value = {"team", "opponentTeam", "hibernateLazyInitializer", "hibernateLazyInitializer", "handler", "fieldHandler"})
 public class Game implements Serializable {

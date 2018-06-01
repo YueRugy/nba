@@ -98,8 +98,8 @@ public class DouTask implements Runnable {
         }
 
 
-      /*  gameDao.save(oneGame);
-        gameDao.save(twoGame);*/
+        gameDao.save(oneGame);
+        gameDao.save(twoGame);
         //  String primary = document.select("div.homeaway").first().text();
 
 
