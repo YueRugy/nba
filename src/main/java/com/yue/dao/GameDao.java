@@ -20,4 +20,6 @@ public interface GameDao extends JpaRepository<Game, Integer> {
             "(SELECT url,count(url) FROM game GROUP BY url" +
             " HAVING count(url)>1 )  AS s1) AND o_id = t_id ORDER BY url", nativeQuery = true)
     List<Game> selectO();
+
+    Game findByUrlAndTId(String query, Integer id);
 }

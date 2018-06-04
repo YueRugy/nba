@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface PlayerDao extends JpaRepository<Player, Integer> {
+    Player findByUrl(String href);
 }

@@ -49,12 +49,12 @@ public class PlayerGameService {
             List<Game> list = gameDao.findByUrl(query);
             if (list != null && list.size() == 1) {
                 if (list.size() == 1) {
-                     single.submit(new SingleTask(url, list.get(i), gameDao, teamDao));
+                    single.submit(new SingleTask(url, list.get(i), gameDao, teamDao));
                 }
             }
 
             if (list == null || list.size() == 0) {
-                 dou.submit(new DouTask(url, query, teamDao, gameDao));
+                dou.submit(new DouTask(url, query, teamDao, gameDao));
             }
 
 
@@ -72,6 +72,24 @@ public class PlayerGameService {
             i += 2;
         }
         gameDao.save(list);
+
+
+    }
+
+    public void create() {
+        int endIndex = 42426;
+        int startIndex = 1;
+
+        String base = "http://www.stat-nba.com/";
+
+        ExecutorService pool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1);
+
+        for (int i = startIndex; i <= endIndex; i++) {
+            String url = base + "game/" + i + ".html";
+            String query = "./game/" + i + ".html";
+            //pool.submit()
+
+        }
 
 
     }

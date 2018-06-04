@@ -37,4 +37,13 @@ public class PlayerGameController extends BaseController {
         return toJson("index", 200);
     }
 
+
+    @ResponseBody
+    @RequestMapping(value = "/gamePlayer/create", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String create() {
+        playerGameService.create();
+        return toJson("index", 200);
+    }
+
+
 }
