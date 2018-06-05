@@ -128,6 +128,7 @@ public class Analyze {
         if (StringUtils.isEmpty(fr)) {
             newGame.setShootRate(new BigDecimal(0.0));
         } else {
+            fr=StringUtil.removeSpecifiedChar(fr,"%");
             newGame.setShootRate(new BigDecimal(fr));
         }
 
@@ -140,6 +141,7 @@ public class Analyze {
         if (StringUtils.isEmpty(threepper)) {
             newGame.setTShootRate(new BigDecimal(0.0));
         } else {
+            threepper=StringUtil.removeSpecifiedChar(threepper,"%");
             newGame.setTShootRate(new BigDecimal(threepper));
         }
 
@@ -151,6 +153,7 @@ public class Analyze {
         if (StringUtils.isEmpty(ftper)) {
             newGame.setPShootRate(new BigDecimal(0.0));
         } else {
+            ftper=StringUtil.removeSpecifiedChar(ftper,"%");
             newGame.setPShootRate(new BigDecimal(ftper));
         }
         newGame.setRebounds(Integer.parseInt(data.select("td.trb").first().text()));

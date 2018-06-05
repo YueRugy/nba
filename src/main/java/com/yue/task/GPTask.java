@@ -74,7 +74,7 @@ public class GPTask implements Runnable {
                 //createPlayer();
             }
             Team team = teamDao.findBySimple(simple);
-            Game game = gameDao.findByUrlAndTId(query, team.getId());
+            Game game = gameDao.findByUrlAndTeam(query, team.getId());
 
             if (game == null) {
                 EmptyUrl emptyUrl = new EmptyUrl();

@@ -19,22 +19,24 @@ import java.util.List;
 @Entity(name = "game")
 @Getter
 @Setter
-@EqualsAndHashCode(exclude = {"team","opponentTeam","pgList"})
+@EqualsAndHashCode(exclude = {"team", "opponentTeam", "pgList"})
 @ToString
-@JsonIgnoreProperties(value = {"team", "opponentTeam", "hibernateLazyInitializer", "hibernateLazyInitializer", "handler", "fieldHandler"})
+@JsonIgnoreProperties(value = {"team", "opponentTeam","pgList", "hibernateLazyInitializer", "hibernateLazyInitializer", "handler", "fieldHandler"})
 public class Game implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false)//可选属性optional=false,表示company不能为空
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false, fetch = FetchType.LAZY)
+//可选属性optional=false,表示company不能为空
     @JoinColumn(name = "t_id")//设置在employee表中的关联字段(外键)
     private Team team;
     private Date date;
 
     private Integer result;
     private Integer pri;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false)//可选属性optional=false,表示company不能为空
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false, fetch = FetchType.LAZY)
+//可选属性optional=false,表示company不能为空
     @JoinColumn(name = "o_id")//设置在employee表中的关联字段(外键)
     private Team opponentTeam;
 

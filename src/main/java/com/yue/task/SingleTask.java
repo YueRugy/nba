@@ -54,8 +54,9 @@ public class SingleTask implements Runnable {
             }
         }
 
-        game.setOpponentTeam(oTeam);
-        gameDao.save(game);
+   /*     game.setOpponentTeam(oTeam);
+        gameDao.save(game);*/
+
 
         String baseSelect = "stat_box";
 

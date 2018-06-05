@@ -25,18 +25,20 @@ public class PlayerGame implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false)//可选属性optional=false,表示company不能为空
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false, fetch = FetchType.LAZY)
+//可选属性optional=false,表示company不能为空
     @JoinColumn(name = "t_id")//设置在employee表中的关联字段(外键)
     private Team team;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false)//可选属性optional=false,表示company不能为空
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false, fetch = FetchType.LAZY)
+//可选属性optional=false,表示company不能为空
     @JoinColumn(name = "g_id")//设置在employee表中的关联字段(外键)
     private Game game;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false)//可选属性optional=false,表示company不能为空
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false, fetch = FetchType.LAZY)
+//可选属性optional=false,表示company不能为空
     @JoinColumn(name = "p_id")//设置在employee表中的关联字段(外键)
     private Player player;
-
 
 
     @Column(name = "shoot_rate", precision = 5, scale = 3)

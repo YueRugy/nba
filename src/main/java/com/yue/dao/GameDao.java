@@ -21,5 +21,14 @@ public interface GameDao extends JpaRepository<Game, Integer> {
             " HAVING count(url)>1 )  AS s1) AND o_id = t_id ORDER BY url", nativeQuery = true)
     List<Game> selectO();
 
-    Game findByUrlAndTId(String query, Integer id);
+
+    @Query(value = "SELECT * FROM game WHERE url IN (SELECT url FROM " +
+            "(SELECT url,count(url) FROM game GROUP BY url" +
+            " HAVING count(url)=1 )  AS s1)", nativeQuery = true)
+    List<Game> findOneUrl();
+
+    Game findByUrlAndTeam(String query, Integer id);
+
+    @Query(value = "SELECT count(1) FROM game", nativeQuery = true)
+    int getCount();
 }

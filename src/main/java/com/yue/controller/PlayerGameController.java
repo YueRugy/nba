@@ -23,7 +23,7 @@ public class PlayerGameController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/gamePlayer/init", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String init() {
+    public String init() throws InterruptedException {
         playerGameService.init();
         playerGameService.refactor();
         return toJson("index", 200);

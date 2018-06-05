@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by yue on 2018/5/31
@@ -34,8 +35,8 @@ public class PlayerGameService {
 
     }
 
-    public void refactor() {
-        int endIndex = 42426;
+    public void refactor() throws InterruptedException {
+        /*int endIndex = 42426;
         int startIndex = 1;
 
         String base = "http://www.stat-nba.com/";
@@ -58,6 +59,29 @@ public class PlayerGameService {
             }
 
 
+        }*/
+
+
+        int count = gameDao.getCount();
+
+        System.out.println(count);
+        List<Game> list = gameDao.findOneUrl();
+       /* list = list.subList(0, 1);
+
+        Game game=gameDao.findOne(80361);
+        game.setOpponentTeam(teamDao.findOne(530));
+        gameDao.save(game);*/
+
+
+        String base = "http://www.stat-nba.com/";
+        ExecutorService single = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1);
+        for (Game game : list) {
+            String url = base + game.getUrl().substring(1, game.getUrl().length());
+            single.submit(new SingleTask(url, game, gameDao, teamDao));
+
+            if (single.awaitTermination(3000, TimeUnit.MILLISECONDS)) {
+                single.shutdown();
+            }
         }
 
 

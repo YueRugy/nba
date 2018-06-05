@@ -1,5 +1,6 @@
 package com.yue.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,8 +18,9 @@ import java.util.List;
 @Entity(name = "player")
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = "pgList")
 @ToString
+@JsonIgnoreProperties(value = {"pgList", "hibernateLazyInitializer", "hibernateLazyInitializer", "handler", "fieldHandler"})
 public class Player implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
